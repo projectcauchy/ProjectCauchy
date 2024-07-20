@@ -1,0 +1,221 @@
+# Set variables for the deck
+suits = ["H", "D", "C", "S"]
+ranks = ["2", "3", "4", "5", "6", "7", "8", "9", "T", "J", "Q", "K", "A"]
+
+# Simulate a deck of cards
+deck_template = [rank + suit for suit in suits for rank in ranks]
+
+# Assign value to ranks for poker hand comparison
+rank_values = {rank: index for index, rank in enumerate(ranks, start=2)}
+
+
+def evaluate_hand(cards):
+    """
+    Evaluate a given poker hand, and determine its type and high cards.
+
+    Hand type abbreviations:
+    - rf: Royal Flush
+    - sf: Straight Flush
+    - foak: Four of a Kind
+    - fh: Full House
+    - fl: Flush
+    - st: Straight
+    - toak: Three of a Kind
+    - tp: Two Pair
+    - pa: Pair
+    - hc: High Card
+
+    :param cards: List of cards (Hole cards + community cards)
+        Example: ['2H', '3D', '5S', '9C', 'KD']
+    :return: Runs card list parameter through poker hand checking logic.
+        Returns hand type in string and a list of  high cards for best hand tiebreakers
+    """
+    if is_royal_flush(cards):
+        return "rf", get_high_cards(cards)
+    elif is_straight_flush(cards):
+        return "sf", get_high_cards(cards)
+    elif is_four_of_a_kind(cards):
+        return "foak", get_four_of_a_kind_high_card(cards)
+    elif is_full_house(cards):
+        return "fh", get_full_house_high_cards(cards)
+    elif is_flush(cards):
+        return "fl", get_high_cards(cards)
+    elif is_straight(cards):
+        return "st", get_high_cards(cards)
+    elif is_three_of_a_kind(cards):
+        return "toak", get_three_of_a_kind_high_card(cards)
+    elif is_two_pair(cards):
+        return "tp", get_two_pair_high_cards(cards)
+    elif is_pair(cards):
+        return "pa", get_pair_high_cards(cards)
+    else:
+        return "hc", get_high_cards(cards)
+
+
+# Functions below check the player's best poker hand, and returns boolean
+# value confirming player's best hand. Functions below are used
+# within the evaluate_hand() function
+#
+# Start of hand evaluation logic
+
+
+def is_royal_flush(cards):
+    suits_in_hand = {suit: [] for suit in suits}
+    for card in cards:
+        rank, suit = card[:-1], card[-1]
+        suits_in_hand[suit].append(rank)
+    for suit, ranks in suits_in_hand.items():
+        if set(ranks) >= {"T", "J", "Q", "K", "A"}:
+            return True
+    return False
+
+
+def is_straight_flush(cards):
+    return is_flush(cards) and is_straight(cards)
+
+
+def is_four_of_a_kind(cards):
+    ranks_in_hand = [card[:-1] for card in cards]
+    for rank in ranks:
+        if ranks_in_hand.count(rank) == 4:
+            return True
+    return False
+
+
+def is_full_house(cards):
+    ranks_in_hand = [card[:-1] for card in cards]
+    three_of_a_kind = None
+    pair = None
+    for rank in ranks:
+        if ranks_in_hand.count(rank) == 3:
+            three_of_a_kind = rank
+        elif ranks_in_hand.count(rank) == 2:
+            pair = rank
+    return three_of_a_kind is not None and pair is not None
+
+
+def is_flush(cards):
+    suits_in_hand = [card[-1] for card in cards]
+    for suit in suits:
+        if suits_in_hand.count(suit) >= 5:
+            return True
+    return False
+
+
+def is_straight(cards):
+    ranks_in_hand = sorted(set([rank_values[card[:-1]] for card in cards]))
+    for i in range(len(ranks_in_hand) - 4):
+        if ranks_in_hand[i : i + 5] == list(
+            range(ranks_in_hand[i], ranks_in_hand[i] + 5)
+        ):
+            return True
+    if set([2, 3, 4, 5, 14]).issubset(ranks_in_hand):
+        return True
+    return False
+
+
+def is_three_of_a_kind(cards):
+    ranks_in_hand = [card[:-1] for card in cards]
+    for rank in ranks:
+        if ranks_in_hand.count(rank) == 3:
+            return True
+    return False
+
+
+def is_two_pair(cards):
+    ranks_in_hand = [card[:-1] for card in cards]
+    pairs = 0
+    for rank in ranks:
+        if ranks_in_hand.count(rank) == 2:
+            pairs += 1
+    return pairs >= 2
+
+
+def is_pair(cards):
+    ranks_in_hand = [card[:-1] for card in cards]
+    for rank in ranks:
+        if ranks_in_hand.count(rank) == 2:
+            return True
+    return False
+
+
+# End of hand evaluation logic
+
+
+# The functions sort the kicker cards from highest to lowest. To be used in
+# Case of the same best poker hand
+
+
+# Start of kicker card evaluation
+
+
+def get_high_cards(cards):
+    return sorted([rank_values[card[:-1]] for card in cards], reverse=True)
+
+
+def get_four_of_a_kind_high_card(cards):
+    ranks_in_hand = [card[:-1] for card in cards]
+    four_of_a_kind = None
+    kickers = []
+    for rank in ranks:
+        if ranks_in_hand.count(rank) == 4:
+            four_of_a_kind = rank_values[rank]
+        else:
+            kickers.append(rank_values[rank])
+    kickers.sort(reverse=True)
+    return [four_of_a_kind] + kickers[:1]
+
+
+def get_full_house_high_cards(cards):
+    ranks_in_hand = [card[:-1] for card in cards]
+    three_of_a_kind = None
+    pair = None
+    for rank in ranks:
+        if ranks_in_hand.count(rank) == 3:
+            three_of_a_kind = rank_values[rank]
+        elif ranks_in_hand.count(rank) == 2:
+            pair = rank_values[rank]
+    return [three_of_a_kind, pair]
+
+
+def get_three_of_a_kind_high_card(cards):
+    ranks_in_hand = [card[:-1] for card in cards]
+    three_of_a_kind = None
+    kickers = []
+    for rank in ranks:
+        if ranks_in_hand.count(rank) == 3:
+            three_of_a_kind = rank_values[rank]
+        else:
+            kickers.append(rank_values[rank])
+    kickers.sort(reverse=True)
+    return [three_of_a_kind] + kickers[:2]
+
+
+def get_two_pair_high_cards(cards):
+    ranks_in_hand = [card[:-1] for card in cards]
+    pairs = []
+    kickers = []
+    for rank in ranks:
+        if ranks_in_hand.count(rank) == 2:
+            pairs.append(rank_values[rank])
+        else:
+            kickers.append(rank_values[rank])
+    pairs.sort(reverse=True)
+    kickers.sort(reverse=True)
+    return pairs + kickers[:1]
+
+
+def get_pair_high_cards(cards):
+    ranks_in_hand = [card[:-1] for card in cards]
+    pair = None
+    kickers = []
+    for rank in ranks:
+        if ranks_in_hand.count(rank) == 2 and pair is None:
+            pair = rank_values[rank]
+        else:
+            kickers.append(rank_values[rank])
+    kickers.sort(reverse=True)
+    return [pair] + kickers[:3]
+
+
+# End of kicker card evaluation
