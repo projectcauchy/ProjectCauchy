@@ -1,9 +1,8 @@
-# games/poker/routes.py
-
 from fastapi import APIRouter
 from .poker_game_logic import generate_poker_hand
 
 router = APIRouter()
+
 
 @router.get("/poker")
 def get_poker_hand():

@@ -1,31 +1,62 @@
-# card_evaluation.py
-suits = ['H', 'D', 'C', 'S']
-ranks = ['2', '3', '4', '5', '6', '7', '8', '9', 'T', 'J', 'Q', 'K', 'A']
+# Set variables for the deck
+suits = ["H", "D", "C", "S"]
+ranks = ["2", "3", "4", "5", "6", "7", "8", "9", "T", "J", "Q", "K", "A"]
+
+# Simulate a deck of cards
 deck_template = [rank + suit for suit in suits for rank in ranks]
+
+# Assign value to ranks for poker hand comparison
 rank_values = {rank: index for index, rank in enumerate(ranks, start=2)}
 
 
 def evaluate_hand(cards):
+    """
+    Evaluate a given poker hand, and determine its type and high cards.
+
+    Hand type abbreviations:
+    - rf: Royal Flush
+    - sf: Straight Flush
+    - foak: Four of a Kind
+    - fh: Full House
+    - fl: Flush
+    - st: Straight
+    - toak: Three of a Kind
+    - tp: Two Pair
+    - pa: Pair
+    - hc: High Card
+
+    :param cards: List of cards (Hole cards + community cards)
+        Example: ['2H', '3D', '5S', '9C', 'KD']
+    :return: Runs card list parameter through poker hand checking logic.
+        Returns hand type in string and a list of  high cards for best hand tiebreakers
+    """
     if is_royal_flush(cards):
-        return 'rf', get_high_cards(cards)
+        return "rf", get_high_cards(cards)
     elif is_straight_flush(cards):
-        return 'sf', get_high_cards(cards)
+        return "sf", get_high_cards(cards)
     elif is_four_of_a_kind(cards):
-        return 'foak', get_four_of_a_kind_high_card(cards)
+        return "foak", get_four_of_a_kind_high_card(cards)
     elif is_full_house(cards):
-        return 'fh', get_full_house_high_cards(cards)
+        return "fh", get_full_house_high_cards(cards)
     elif is_flush(cards):
-        return 'fl', get_high_cards(cards)
+        return "fl", get_high_cards(cards)
     elif is_straight(cards):
-        return 'st', get_high_cards(cards)
+        return "st", get_high_cards(cards)
     elif is_three_of_a_kind(cards):
-        return 'toak', get_three_of_a_kind_high_card(cards)
+        return "toak", get_three_of_a_kind_high_card(cards)
     elif is_two_pair(cards):
-        return 'tp', get_two_pair_high_cards(cards)
+        return "tp", get_two_pair_high_cards(cards)
     elif is_pair(cards):
-        return 'pa', get_pair_high_cards(cards)
+        return "pa", get_pair_high_cards(cards)
     else:
-        return 'hc', get_high_cards(cards)
+        return "hc", get_high_cards(cards)
+
+
+# Functions below check the player's best poker hand, and returns boolean
+# value confirming player's best hand. Functions below are used
+# within the evaluate_hand() function
+#
+# Start of hand evaluation logic
 
 
 def is_royal_flush(cards):
@@ -34,7 +65,7 @@ def is_royal_flush(cards):
         rank, suit = card[:-1], card[-1]
         suits_in_hand[suit].append(rank)
     for suit, ranks in suits_in_hand.items():
-        if set(ranks) >= {'T', 'J', 'Q', 'K', 'A'}:
+        if set(ranks) >= {"T", "J", "Q", "K", "A"}:
             return True
     return False
 
@@ -74,7 +105,9 @@ def is_flush(cards):
 def is_straight(cards):
     ranks_in_hand = sorted(set([rank_values[card[:-1]] for card in cards]))
     for i in range(len(ranks_in_hand) - 4):
-        if ranks_in_hand[i:i + 5] == list(range(ranks_in_hand[i], ranks_in_hand[i] + 5)):
+        if ranks_in_hand[i : i + 5] == list(
+            range(ranks_in_hand[i], ranks_in_hand[i] + 5)
+        ):
             return True
     if set([2, 3, 4, 5, 14]).issubset(ranks_in_hand):
         return True
@@ -104,6 +137,16 @@ def is_pair(cards):
         if ranks_in_hand.count(rank) == 2:
             return True
     return False
+
+
+# End of hand evaluation logic
+
+
+# The functions sort the kicker cards from highest to lowest. To be used in
+# Case of the same best poker hand
+
+
+# Start of kicker card evaluation
 
 
 def get_high_cards(cards):
@@ -173,3 +216,6 @@ def get_pair_high_cards(cards):
             kickers.append(rank_values[rank])
     kickers.sort(reverse=True)
     return [pair] + kickers[:3]
+
+
+# End of kicker card evaluation
