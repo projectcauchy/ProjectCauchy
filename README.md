@@ -2,7 +2,7 @@
 
 More details:
 
-[http://blog.cauchy.dad/posts/projectcauchy/](http://blog.cauchy.dad/posts/projectcauchy/)
+[https://blog.cauchy.dad/posts/projectcauchy/](https://blog.cauchy.dad/posts/projectcauchy/)
 
 # Getting Started
 
