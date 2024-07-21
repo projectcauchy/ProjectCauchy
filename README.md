@@ -1,16 +1,20 @@
-## Hi there 👋
+# Project Cauchy
 
-<!--
-**projectcauchy/ProjectCauchy** is a ✨ _special_ ✨ repository because its `README.md` (this file) appears on your GitHub profile.
+More details:
 
-Here are some ideas to get you started:
+[http://blog.cauchy.dad/posts/projectcauchy/](http://blog.cauchy.dad/posts/projectcauchy/)
 
-- 🔭 I’m currently working on ...
-- 🌱 I’m currently learning ...
-- 👯 I’m looking to collaborate on ...
-- 🤔 I’m looking for help with ...
-- 💬 Ask me about ...
-- 📫 How to reach me: ...
-- 😄 Pronouns: ...
-- ⚡ Fun fact: ...
--->
+# Getting Started
+
+### Developing the `game-server`
+
+```bash
+cd game-server
+# run in a virtual environment
+pip install -r requirements.txt
+uvicorn server.app:app
+```
+
+1. Game logic should live on `game-server/games` directory.
+2. All FastAPI logic should live on `game-server/server` directory.
+3. All modules in `games-server/games` should return a dataclass. Converting it to `json` will be handled by `games-server/server`
