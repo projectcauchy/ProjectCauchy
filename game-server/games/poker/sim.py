@@ -7,5 +7,5 @@ class PokerResult:
     endtime: datetime
     betamount: float
 
-def simulate() -> PokerResult:
+def simulate_poker() -> PokerResult:
     return PokerResult(datetime.now(), datetime.now() + timedelta(hours=2), 20)

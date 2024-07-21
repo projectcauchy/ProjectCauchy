@@ -1,1 +1,2 @@
-from .poker.sim import simulate
+from .poker import simulate_poker
+from .bigwheel import simulate_bigwheel
