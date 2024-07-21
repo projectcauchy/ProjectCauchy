@@ -1,10 +1,14 @@
 from fastapi import FastAPI
-from games.poker.sim import simulate
+from games.poker import simulate_poker
+from games.bigwheel import simulate_bigwheel
 from dataclasses import asdict
 
 app = FastAPI()
 
-# Define a route that returns a JSON response
 @app.get("/poker")
-def get_info():
-    return asdict(simulate())
+def get_poker():
+    return asdict(simulate_poker())
+
+@app.get("/bigwheel")
+def get_bigwheel():
+    return asdict(simulate_bigwheel())
