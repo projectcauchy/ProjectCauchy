@@ -1,7 +1,9 @@
-from fastapi import FastAPI
+from fastapi import FastAPI, Query
 from games.poker import simulate_poker
 from games.bigwheel import simulate_bigwheel
+from games.blackjack import simulate_blackjack_games
 from dataclasses import asdict
+from typing import Dict, Any
 
 app = FastAPI()
 
@@ -12,3 +14,12 @@ def get_poker():
 @app.get("/bigwheel")
 def get_bigwheel():
     return asdict(simulate_bigwheel())
+
+
+@app.get("/blackjack")
+def get_blackjack(
+    players: int = Query(default=10, ge=1, le=10000),
+    games: int = Query(default=10, ge=1, le=100000)
+) -> Dict[str, Any]:
+    simulation = simulate_blackjack_games(players, games)
+    return asdict(simulation)
