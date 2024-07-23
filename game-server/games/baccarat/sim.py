@@ -50,20 +50,20 @@ def simulate_baccarat() -> BaccaratResult:
 
     player_hand = [
         {
-            'value': game_result.player_hand[0].split(' of ')[1],
-            'rank': game_result.player_hand[0].split(' of ')[0]
+            'value': game_result.player_hand[0].split(' of ')[0],
+            'rank': game_result.player_hand[0].split(' of ')[1]
         },
         {
-            'value': game_result.player_hand[1].split(' of ')[1],
-            'rank': game_result.player_hand[1].split(' of ')[0]
+            'value': game_result.player_hand[1].split(' of ')[0],
+            'rank': game_result.player_hand[1].split(' of ')[1]
         },
     ]
 
     if len(game_result.player_hand) == 3:
         player_hand.append(
             {
-                'value': game_result.player_hand[2].split(' of ')[1],
-                'rank': game_result.player_hand[2].split(' of ')[0]
+                'value': game_result.player_hand[2].split(' of ')[0],
+                'rank': game_result.player_hand[2].split(' of ')[1]
             }
         )
 
@@ -71,20 +71,20 @@ def simulate_baccarat() -> BaccaratResult:
 
     banker_hand = [
         {
-            'value': game_result.banker_hand[0].split(' of ')[1],
-            'rank': game_result.banker_hand[0].split(' of ')[0]
+            'value': game_result.banker_hand[0].split(' of ')[0],
+            'rank': game_result.banker_hand[0].split(' of ')[1]
         },
         {
-            'value': game_result.banker_hand[1].split(' of ')[1],
-            'rank': game_result.banker_hand[1].split(' of ')[0]
+            'value': game_result.banker_hand[1].split(' of ')[0],
+            'rank': game_result.banker_hand[1].split(' of ')[1]
         },
     ]
 
     if len(game_result.banker_hand) == 3:
         banker_hand.append(
             {
-                'value': game_result.banker_hand[2].split(' of ')[1],
-                'rank': game_result.banker_hand[2].split(' of ')[0]
+                'value': game_result.banker_hand[2].split(' of ')[0],
+                'rank': game_result.banker_hand[2].split(' of ')[1]
             }
         )
 
@@ -92,7 +92,7 @@ def simulate_baccarat() -> BaccaratResult:
 
     winner = announce_winner(player_hand_value, banker_hand_value)
     player_payout = compute_payout(winner, player_wager, player_bet)
-    player_ending_balance = float(player_beginning_balance + player_payout - player_wager)
+    player_ending_balance = float(player_beginning_balance + player_payout + player_wager)
     last_action = game_result.last_action
     game_outcome = f'{winner} wins!' if winner in ['Player', 'Banker'] else "It's a tie!"
     player_bet_outcome = announce_bet_winner(player_bet, winner)
