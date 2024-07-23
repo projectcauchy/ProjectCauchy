@@ -81,7 +81,7 @@ def draw_banker_hand(player_hand, with_weights = 'No'):
     card_combinations, card_combinations_df, deck_dict = build_combinations(deck_remaining)
 
     if with_weights != 'No':
-        weights = np.where(card_combinations_df['card_combination_value'] >= 7, 3, 1)
+        weights = np.where(card_combinations_df['card_combination_value'] >= 7, 10, 1)
 
     else:
         weights = np.ones(len(card_combinations))
@@ -138,24 +138,44 @@ def announce_winner(player_hand_value, banker_hand_value):
     return winner
 
 
+def announce_bet_winner(player_bet, winner):
+    if player_bet == 'Banker' and winner == 'Banker':
+        return 'Player bet on banker wins!'
+    
+    elif player_bet == 'Banker' and winner != 'Banker':
+        return 'Player bet on banker losses!'
+
+    elif player_bet == 'Player' and winner == 'Player':
+        return 'Player bet on player wins!'
+
+    elif player_bet == 'Player' and winner != 'Player':
+        return 'Player bet on player losses!'
+
+    elif player_bet == 'Tie' and winner == 'Tie':
+        return 'Player bet on tie wins!'
+
+    else:
+        return 'Player bet on tie losses!'
+
+
 def compute_payout(winner, wager, bet):
     if winner == 'Player':
         if bet == 'Player':
-            payout = wager + (wager * 1)
+            payout = wager * 1
         else:
-            payout = 0
+            payout = -wager
 
     elif winner == 'Banker':
         if bet == 'Banker':
-            payout = wager + (wager * .95)
+            payout = wager * .95
         else:
-            payout = 0
+            payout = -wager
 
     elif winner == 'Tie':
         if bet == 'Tie':
-            payout = wager + (wager * 8)
+            payout = wager * 8
         else:
-            payout = 0
+            payout = -wager
 
     return payout
 
