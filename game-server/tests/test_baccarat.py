@@ -52,4 +52,4 @@ def test_simulate_baccarat():
     assert result.start_time < result.end_time
     assert result.player_hand_value == int(str(sum(10 if card['value'] in ['K', 'Q', 'J'] else 1 if card['value'] == 'A' else int(card['value']) for card in result.player_hand))[-1])
     assert result.banker_hand_value == int(str(sum(10 if card['value'] in ['K', 'Q', 'J'] else 1 if card['value'] == 'A' else int(card['value']) for card in result.banker_hand))[-1])
-    assert result.player_ending_balance + result.player_payout + result.player_wager == result.player_beginning_balance
+    assert result.player_ending_balance - result.player_payout == result.player_beginning_balance
