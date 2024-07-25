@@ -3,3 +3,9 @@ venv
 *.pyc
 .python-version
 **/__pycache__
+.idea/
+docker-compose.yml
+game-server/Dockerfile
+game-server/.pytest_cache/
+*.log
+*.tmp

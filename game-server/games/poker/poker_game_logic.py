@@ -1,6 +1,7 @@
 import random
 import hashlib
 import datetime
+from typing import List, Dict, Tuple, Any
 from .hand_evaluation import evaluate_hand
 
 behaviors = ['High Gambler', 'Safe Player', 'Low Baller']
@@ -27,37 +28,39 @@ hand_values = {
 
 
 class Player:
-    def __init__(self, player_id, name, behavior):
+    def __init__(self, player_id: str, name: str, behavior: str):
         self.player_id = player_id
         self.name = name
         self.behavior = behavior
-        self.hole_cards = []
+        self.hole_cards: List[str] = []
         self.folded = False
         self.forfeited = False
         self.bets_made = 0
         self.net_win = 0
         self.chips = random.randint(5000, 40000)
 
-    def deal_hole_cards(self, deck):
+    def deal_hole_cards(self, deck: List[str]) -> None:
         self.hole_cards = random.sample(deck, 2)
         for card in self.hole_cards:
             deck.remove(card)
 
-    def fold(self):
+    def fold(self) -> None:
         self.folded = True
 
-    def forfeit(self):
+    def forfeit(self) -> None:
         self.forfeited = True
 
-    def __str__(self):
+    def __str__(self) -> str:
         return f"{self.name} ({self.player_id}, {self.behavior}): Hole Cards = {self.hole_cards}"
 
-def generate_player_id(name):
+
+def generate_player_id(name: str) -> str:
     full_hash = hashlib.sha256(name.encode()).hexdigest()
     return full_hash[:25]
 
-def create_player_pool(num_players):
-    player_pool = {}
+
+def create_player_pool(num_players: int) -> Dict[str, Player]:
+    player_pool: Dict[str, Player] = {}
     for i in range(num_players):
         name = f"Player {i+1}"
         player_id = generate_player_id(name)
@@ -66,10 +69,11 @@ def create_player_pool(num_players):
     return player_pool
 
 
-def draw_cards(deck, num):
+def draw_cards(deck: List[str], num: int) -> List[str]:
     return random.sample(deck, num)
 
-def generate_hole_and_community_cards(player_1, player_2):
+
+def generate_hole_and_community_cards(player_1: Player, player_2: Player) -> Tuple[List[str], List[str], List[str]]:
     deck = deck_template.copy()
     random.shuffle(deck)
 
@@ -79,7 +83,8 @@ def generate_hole_and_community_cards(player_1, player_2):
     community_cards = draw_cards(deck, 5)
     return player_1.hole_cards, player_2.hole_cards, community_cards
 
-def determine_winner(hand1, hand2, hand1_high_cards, hand2_high_cards, hole_cards_p1, hole_cards_p2):
+
+def determine_winner(hand1: str, hand2: str, hand1_high_cards: List[int], hand2_high_cards: List[int], hole_cards_p1: List[str], hole_cards_p2: List[str]) -> str:
     if hand_values[hand1] > hand_values[hand2]:
         return "p1"
     elif hand_values[hand1] < hand_values[hand2]:
@@ -102,7 +107,8 @@ def determine_winner(hand1, hand2, hand1_high_cards, hand2_high_cards, hole_card
 
         return "tie"
 
-def generate_winnings(winner, player1, player2, player1_bets, player2_bets):
+
+def generate_winnings(winner: str, player1: Player, player2: Player, player1_bets: int, player2_bets: int) -> Tuple[float, float, float, float, float, float]:
     rake = 5
     initial_bets = 10
     total_pot = player1_bets + player2_bets + (initial_bets * 2)
@@ -125,7 +131,8 @@ def generate_winnings(winner, player1, player2, player1_bets, player2_bets):
 
     return player1_netwin, player2_netwin, house_earnings, total_pot, rake, initial_bets
 
-def place_bets(player1, player2, win_option):
+
+def place_bets(player1: Player, player2: Player, win_option: str) -> Tuple[int, int]:
     if win_option == 'All in':
         player1_bets = player1.chips
         player2_bets = player2.chips
@@ -135,10 +142,12 @@ def place_bets(player1, player2, win_option):
 
     return player1_bets, player2_bets
 
-def generate_employee_id():
+
+def generate_employee_id() -> str:
     return hashlib.sha256(str(random.getrandbits(256)).encode()).hexdigest()[:6]
 
-def game_details(rounds):
+
+def game_details(rounds: int) -> Dict[str, Any]:
     game_id = hashlib.sha256(str(random.getrandbits(256)).encode()).hexdigest()[:24]
     dealer_behaviors = ['Sus', 'Sus', 'Good', 'Good', 'Good', 'Good', 'Good', 'Good']
     dealer_ids = {
@@ -167,7 +176,8 @@ def game_details(rounds):
         "datetime_end": datetime_end
     }
 
-def generate_poker_hand():
+
+def generate_poker_hand() -> Dict[str, Any]:
     player_pool = create_player_pool(100)
     player_ids = random.sample(list(player_pool.keys()), 2)
     player_1 = player_pool[player_ids[0]]
@@ -210,23 +220,23 @@ def generate_poker_hand():
         "players": [
             {
                 "playerId": player_1.player_id,
-                "holeCards": [{"rank": rank_values[card[:-1]], "suit": card[-1]} for card in player_1.hole_cards],
+                "holeCards": player_1.hole_cards,  # Ensure these are strings
                 "startingChips": player_1.chips,
                 "bestHand": best_hand_p1,
                 "netWin": player1_netwin
             },
             {
                 "playerId": player_2.player_id,
-                "holeCards": [{"rank": rank_values[card[:-1]], "suit": card[-1]} for card in player_2.hole_cards],
+                "holeCards": player_2.hole_cards,  # Ensure these are strings
                 "startingChips": player_2.chips,
                 "bestHand": best_hand_p2,
                 "netWin": player2_netwin
             }
         ],
         "communityCards": {
-            "flop": [{"rank": rank_values[card[:-1]], "suit": card[-1]} for card in community_cards[:3]],
-            "turn": {"rank": rank_values[community_cards[3][:-1]], "suit": community_cards[3][-1]},
-            "river": {"rank": rank_values[community_cards[4][:-1]], "suit": community_cards[4][-1]}
+            "flop": [{"rank": card[:-1], "suit": card[-1]} for card in community_cards[:3]],
+            "turn": {"rank": community_cards[3][:-1], "suit": community_cards[3][-1]},
+            "river": {"rank": community_cards[4][:-1], "suit": community_cards[4][-1]}
         }
     }
 

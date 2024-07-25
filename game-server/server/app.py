@@ -9,8 +9,9 @@ from typing import Dict, Any
 app = FastAPI()
 
 @app.get("/poker")
-def get_poker():
-    return asdict(simulate_poker())
+def get_poker(num_games: int = Query(default=1, ge=1, le=100)):
+    results = simulate_poker(num_games)
+    return [asdict(result) for result in results]
 
 @app.get("/bigwheel")
 def get_bigwheel():
