@@ -1,4 +1,4 @@
-# card_evaluation.py
+# hand_evaluation.py
 from typing import List, Tuple
 
 suits = ['H', 'D', 'C', 'S']
