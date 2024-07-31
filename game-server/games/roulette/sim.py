@@ -25,7 +25,7 @@ def simulate_roulette() -> RouletteResult:
     game.spin()
 
     return RouletteResult(
-        winning_pocket=game._winning_pocket,
+        winning_pocket=game.get_winning_pocket(),
         winning_bets=game.get_winning_bets(),
         bets=game.get_all_bets(),
     )

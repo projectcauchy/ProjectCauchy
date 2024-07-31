@@ -6,25 +6,28 @@ from ..bet.roulette_bet import RouletteBet
 
 
 class RouletteGame:
-    _pockets = List[RoulettePocket]
-    _winning_pocket: RoulettePocket = None
-    _bets: List[RouletteBet] = []
+    __pockets = List[RoulettePocket]
+    __winning_pocket: RoulettePocket = None
+    __bets: List[RouletteBet] = []
 
     def __init__(self):
-        self._pockets = [RoulettePocket(pocket_number=i) for i in range(-1, 37)]
+        self.__pockets = [RoulettePocket(pocket_number=i) for i in range(-1, 37)]
 
     def spin(self):
         row = Random().randint(1, 12)
         col = Random().randint(1, 3)
-        self._winning_pocket = self.pocket_from_coord(row, col)
+        self.__winning_pocket = self.pocket_from_coord(row, col)
 
-        for bet in self._bets:
-            bet.compute_winnings(self._winning_pocket)
+        for bet in self.__bets:
+            bet.compute_winnings(self.__winning_pocket)
+
+    def get_winning_pocket(self) -> RoulettePocket:
+        return self.__winning_pocket
 
     def get_winning_bets(self) -> List[RouletteBet]:
         winning_bets = defaultdict(list)
 
-        for bet in self._bets:
+        for bet in self.__bets:
             if bet.amount_won != None:
                 winning_bets[bet.type].append(bet)
 
@@ -33,27 +36,27 @@ class RouletteGame:
     def get_all_bets(self) -> List[RouletteBet]:
         all_bets = defaultdict(list)
 
-        for bet in self._bets:
+        for bet in self.__bets:
             all_bets[bet.type].append(bet)
 
         return dict(all_bets)
 
     def clear_bets(self):
-        self._bets.clear()
+        self.__bets.clear()
 
     def add_bet(self, bet: RouletteBet):
-        self._bets.append(bet)
+        self.__bets.append(bet)
 
     def pocket_from_coord(self, row: int, col: int) -> RoulettePocket:
         pocket_number = col + ((row - 1) * 3)
-        for pocket in self._pockets:
+        for pocket in self.__pockets:
             if pocket_number == pocket.pocket_number:
                 return pocket
 
     def pocket_from_pocket_number(self, pocket_number: int) -> RoulettePocket:
-        for pocket in self._pockets:
+        for pocket in self.__pockets:
             if pocket_number == pocket.pocket_number:
                 return pocket
 
     def pockets_from_color(self, color: PocketColor) -> List[RoulettePocket]:
-        return [pocket for pocket in self._pockets if pocket.pocket_color == color]
+        return [pocket for pocket in self.__pockets if pocket.pocket_color == color]
