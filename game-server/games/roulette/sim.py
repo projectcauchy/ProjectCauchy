@@ -2,7 +2,6 @@ from collections import defaultdict
 from dataclasses import dataclass
 
 from typing import Dict, List
-from copy import deepcopy
 
 from .bet import random_bet, RouletteBet
 
@@ -29,6 +28,7 @@ def simulate_roulette() -> RouletteResult:
         winning_bets=_bets_as_dict(game.get_winning_bets()),
         bets=_bets_as_dict(game.get_all_bets()),
     )
+
 
 def _bets_as_dict(bet_list: List[RouletteBet]) -> Dict:
     bets = defaultdict(list)

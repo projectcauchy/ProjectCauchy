@@ -1,4 +1,3 @@
-from collections import defaultdict
 from random import Random
 from typing import List
 from .roulette_pocket import RoulettePocket, PocketColor
