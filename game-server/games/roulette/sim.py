@@ -26,6 +26,13 @@ def simulate_roulette() -> RouletteResult:
 
     return RouletteResult(
         winning_pocket=game.get_winning_pocket(),
-        winning_bets=game.get_winning_bets(),
-        bets=game.get_all_bets(),
+        winning_bets=_bets_as_dict(game.get_winning_bets()),
+        bets=_bets_as_dict(game.get_all_bets()),
     )
+
+def _bets_as_dict(bet_list: List[RouletteBet]) -> Dict:
+    bets = defaultdict(list)
+    for bet in bet_list:
+        bets[bet.type].append(bet)
+
+    return dict(bets)

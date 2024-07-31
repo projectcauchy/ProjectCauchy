@@ -25,21 +25,10 @@ class RouletteGame:
         return self.__winning_pocket
 
     def get_winning_bets(self) -> List[RouletteBet]:
-        winning_bets = defaultdict(list)
-
-        for bet in self.__bets:
-            if bet.amount_won != None:
-                winning_bets[bet.type].append(bet)
-
-        return dict(winning_bets)
+        return [bet for bet in self.__bets if bet.amount_won != None]
 
     def get_all_bets(self) -> List[RouletteBet]:
-        all_bets = defaultdict(list)
-
-        for bet in self.__bets:
-            all_bets[bet.type].append(bet)
-
-        return dict(all_bets)
+        return self.__bets
 
     def clear_bets(self):
         self.__bets.clear()
