@@ -96,8 +96,6 @@ def _random_street_bet(game: RouletteGame) -> RouletteBet:
 def _five_number_bet(game: RouletteGame) -> RouletteBet:
     return FiveNumberBet(
         bet_amount=Random().uniform(1, 100),
-        pockets=game.pockets_from_color(PocketColor.GREEN)
-        + [game.pocket_from_coord(1, col) for col in range(1, 4)],
     )
 
 

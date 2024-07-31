@@ -97,14 +97,12 @@ class FiveNumberBet(RouletteBet):
     def __init__(
         self,
         bet_amount: float,
-        pockets: List[RoulettePocket],
     ) -> None:
         self.id = _generate_id()
         self.bet_amount = bet_amount
-        self.pockets = pockets
 
     def compute_winnings(self, winning_pocket: RoulettePocket):
-        if winning_pocket in self.pockets:
+        if winning_pocket.pocket_number <= 3:
             self.amount_won = self.bet_amount * 11
 
 
