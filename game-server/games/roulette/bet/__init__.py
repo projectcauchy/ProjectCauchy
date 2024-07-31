@@ -18,3 +18,6 @@ from .roulette_bet_impl import (
     ColorBet,
     OddOrEvenBet,
 )
+
+
+from .random_bet import random_bet
