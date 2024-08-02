@@ -146,6 +146,8 @@ class DozenBet(RouletteBet):
         self.bet = bet
 
     def compute_winnings(self, winning_pocket: RoulettePocket):
+        if winning_pocket.pocket_number <= 0:
+            return
         winning_bet: DozenBetType
         if winning_pocket.pocket_number <= 12:
             winning_bet = DozenBetType.FIRST_DOZEN
@@ -176,6 +178,8 @@ class ColumnBet(RouletteBet):
         self.bet = bet
 
     def compute_winnings(self, winning_pocket: RoulettePocket):
+        if winning_pocket.pocket_number <= 0:
+            return
         winning_bet: ColumnBetType
         if winning_pocket.pocket_number % 3 == 1:
             winning_bet = ColumnBetType.FIRST_COLUMN
@@ -206,7 +210,9 @@ class EighteenNumberBet(RouletteBet):
         self.bet = bet
 
     def compute_winnings(self, winning_pocket: RoulettePocket):
-        winning_bet = (
+        if winning_pocket.pocket_number <= 0:
+            return
+        winning_bet: EighteenNumberBetType = (
             EighteenNumberBetType.FIRST_EIGHTEEN
             if winning_pocket.pocket_number <= 18
             else EighteenNumberBetType.SECOND_EIGHTEEN
