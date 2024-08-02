@@ -154,7 +154,7 @@ class DozenBet(RouletteBet):
         else:
             winning_bet = DozenBetType.THIRD_DOZEN
 
-        if winning_bet is self.bet:
+        if winning_bet == self.bet:
             self.amount_won = self.bet_amount * 2
 
 
@@ -184,7 +184,7 @@ class ColumnBet(RouletteBet):
         else:
             winning_bet = ColumnBetType.THIRD_COLUMN
 
-        if winning_bet is self.bet:
+        if winning_bet == self.bet:
             self.amount_won = self.bet_amount * 2
 
 
@@ -211,7 +211,7 @@ class EighteenNumberBet(RouletteBet):
             if winning_pocket.pocket_number <= 18
             else EighteenNumberBetType.SECOND_EIGHTEEN
         )
-        if self.bet is winning_bet:
+        if self.bet == winning_bet:
             self.amount_won = self.bet_amount
 
 
@@ -233,7 +233,7 @@ class ColorBet(RouletteBet):
         self.bet = bet
 
     def compute_winnings(self, winning_pocket: RoulettePocket):
-        if winning_pocket.pocket_color is self.bet:
+        if winning_pocket.pocket_color == self.bet:
             self.amount_won = self.bet_amount
 
 
@@ -254,7 +254,7 @@ class OddOrEvenBet(RouletteBet):
         self.type = bet
 
     def compute_winnings(self, winning_pocket: RoulettePocket):
-        remainder = 1 if self.type is RouletteBetType.ODD else 0
+        remainder = 1 if self.type == RouletteBetType.ODD else 0
         winning_pocket_number = (
             0 if winning_pocket.pocket_number < 0 else winning_pocket.pocket_number
         )

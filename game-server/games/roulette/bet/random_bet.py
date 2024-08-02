@@ -21,37 +21,37 @@ from . import (
 
 def random_bet(game: RouletteGame) -> RouletteBet:
     bet_type: RouletteBetType = Random().choice(list(RouletteBetType))
-    if bet_type is RouletteBetType.STRAIGHT_UP:
+    if bet_type == RouletteBetType.STRAIGHT_UP:
         return _random_straight_up_bet(game)
 
-    if bet_type is RouletteBetType.SPLIT:
+    if bet_type == RouletteBetType.SPLIT:
         return _random_split_bet(game)
 
-    if bet_type is RouletteBetType.STREET:
+    if bet_type == RouletteBetType.STREET:
         return _random_street_bet(game)
 
-    if bet_type is RouletteBetType.FIVE_NUMBER_BET:
+    if bet_type == RouletteBetType.FIVE_NUMBER_BET:
         return _five_number_bet(game)
 
-    if bet_type is RouletteBetType.LINE:
+    if bet_type == RouletteBetType.LINE:
         return _random_line_bet(game)
 
-    if bet_type is RouletteBetType.DOZEN:
+    if bet_type == RouletteBetType.DOZEN:
         return _random_dozen_bet(game)
 
-    if bet_type is RouletteBetType.COLUMN:
+    if bet_type == RouletteBetType.COLUMN:
         return _random_column_bet(game)
 
-    if bet_type is RouletteBetType.EIGHTEEN_NUMBER_BET:
+    if bet_type == RouletteBetType.EIGHTEEN_NUMBER_BET:
         return _random_eighteen_number_bet(game)
 
-    if bet_type is RouletteBetType.COLOR:
+    if bet_type == RouletteBetType.COLOR:
         return _random_color_bet(game)
 
-    if bet_type is RouletteBetType.ODD:
+    if bet_type == RouletteBetType.ODD:
         return _odd_or_even_bet(game=game, is_even=False)
 
-    if bet_type is RouletteBetType.EVEN:
+    if bet_type == RouletteBetType.EVEN:
         return _odd_or_even_bet(game=game, is_even=True)
 
 
