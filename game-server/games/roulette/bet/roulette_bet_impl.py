@@ -255,5 +255,8 @@ class OddOrEvenBet(RouletteBet):
 
     def compute_winnings(self, winning_pocket: RoulettePocket):
         remainder = 1 if self.type is RouletteBetType.ODD else 0
-        if winning_pocket.pocket_number % 2 == remainder:
+        winning_pocket_number = (
+            0 if winning_pocket.pocket_number < 0 else winning_pocket.pocket_number
+        )
+        if winning_pocket_number % 2 == remainder:
             self.amount_won = self.bet_amount
