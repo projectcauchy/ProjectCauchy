@@ -13,9 +13,9 @@ class RouletteGame:
         self.__pockets = [RoulettePocket(pocket_number=i) for i in range(-1, 37)]
 
     def spin(self):
-        row = Random().randint(1, 12)
-        col = Random().randint(1, 3)
-        self.__winning_pocket = self.pocket_from_coord(row, col)
+        self.__winning_pocket = self.pocket_from_pocket_number(
+            pocket_number=Random().randint(-1, 36)
+        )
 
         for bet in self.__bets:
             bet.compute_winnings(self.__winning_pocket)
