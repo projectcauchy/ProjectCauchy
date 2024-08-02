@@ -136,7 +136,7 @@ def test_five_number_bet(game: RouletteGame):
         game.spin()
 
     assert game.get_winning_pocket().pocket_number == 9
-    assert bet.amount_won == None
+    assert bet.amount_won is None
 
 
 def test_line_bet(game: RouletteGame):
@@ -248,4 +248,4 @@ def test_even_bet(game: RouletteGame):
         game.spin()
 
     assert game.get_winning_pocket().pocket_number == 9
-    assert bet.amount_won == None
+    assert bet.amount_won is None
