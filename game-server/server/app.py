@@ -10,7 +10,7 @@ app = FastAPI()
 
 @app.get("/poker")
 def get_poker():
-    return asdict(simulate_poker())
+    return simulate_poker()
 
 @app.get("/bigwheel")
 def get_bigwheel():
