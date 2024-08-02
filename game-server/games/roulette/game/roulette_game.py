@@ -24,7 +24,7 @@ class RouletteGame:
         return self.__winning_pocket
 
     def get_winning_bets(self) -> List[RouletteBet]:
-        return [bet for bet in self.__bets if bet.amount_won != None]
+        return [bet for bet in self.__bets if bet.amount_won is not None]
 
     def get_all_bets(self) -> List[RouletteBet]:
         return self.__bets
