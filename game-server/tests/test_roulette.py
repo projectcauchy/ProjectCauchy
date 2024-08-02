@@ -79,7 +79,7 @@ def test_straight_up_bet(game: RouletteGame):
     )
     game.add_bet(bet)
 
-    with patch("random.Random.randint", return_value=3):
+    with patch("random.Random.randint", return_value=9):
         game.spin()
 
     assert game.get_winning_pocket().pocket_number == 9
@@ -98,7 +98,7 @@ def test_split_bet(game: RouletteGame):
     )
     game.add_bet(bet)
 
-    with patch("random.Random.randint", return_value=3):
+    with patch("random.Random.randint", return_value=9):
         game.spin()
 
     assert game.get_winning_pocket().pocket_number == 9
@@ -118,7 +118,7 @@ def test_street_bet(game: RouletteGame):
     )
     game.add_bet(bet)
 
-    with patch("random.Random.randint", return_value=3):
+    with patch("random.Random.randint", return_value=9):
         game.spin()
 
     assert game.get_winning_pocket().pocket_number == 9
@@ -132,7 +132,7 @@ def test_five_number_bet(game: RouletteGame):
         bet_amount=100,
     )
     game.add_bet(bet)
-    with patch("random.Random.randint", return_value=3):
+    with patch("random.Random.randint", return_value=9):
         game.spin()
 
     assert game.get_winning_pocket().pocket_number == 9
@@ -154,7 +154,7 @@ def test_line_bet(game: RouletteGame):
         ],
     )
     game.add_bet(bet)
-    with patch("random.Random.randint", return_value=3):
+    with patch("random.Random.randint", return_value=9):
         game.spin()
 
     assert game.get_winning_pocket().pocket_number == 9
@@ -169,7 +169,7 @@ def test_dozen_bet(game: RouletteGame):
         bet=DozenBetType.FIRST_DOZEN,
     )
     game.add_bet(bet)
-    with patch("random.Random.randint", return_value=3):
+    with patch("random.Random.randint", return_value=9):
         game.spin()
 
     assert game.get_winning_pocket().pocket_number == 9
@@ -184,7 +184,7 @@ def test_column_bet(game: RouletteGame):
         bet=ColumnBetType.THIRD_COLUMN,
     )
     game.add_bet(bet)
-    with patch("random.Random.randint", return_value=3):
+    with patch("random.Random.randint", return_value=9):
         game.spin()
 
     assert game.get_winning_pocket().pocket_number == 9
@@ -199,7 +199,7 @@ def test_eighteen_number_bet(game: RouletteGame):
         bet=EighteenNumberBetType.FIRST_EIGHTEEN,
     )
     game.add_bet(bet)
-    with patch("random.Random.randint", return_value=3):
+    with patch("random.Random.randint", return_value=9):
         game.spin()
 
     assert game.get_winning_pocket().pocket_number == 9
@@ -214,7 +214,7 @@ def test_color_bet(game: RouletteGame):
         bet=PocketColor.RED,
     )
     game.add_bet(bet)
-    with patch("random.Random.randint", return_value=3):
+    with patch("random.Random.randint", return_value=9):
         game.spin()
 
     assert game.get_winning_pocket().pocket_number == 9
@@ -229,7 +229,7 @@ def test_odd_bet(game: RouletteGame):
         bet=RouletteBetType.ODD,
     )
     game.add_bet(bet)
-    with patch("random.Random.randint", return_value=3):
+    with patch("random.Random.randint", return_value=9):
         game.spin()
 
     assert game.get_winning_pocket().pocket_number == 9
@@ -244,7 +244,7 @@ def test_even_bet(game: RouletteGame):
         bet=RouletteBetType.EVEN,
     )
     game.add_bet(bet)
-    with patch("random.Random.randint", return_value=3):
+    with patch("random.Random.randint", return_value=9):
         game.spin()
 
     assert game.get_winning_pocket().pocket_number == 9
