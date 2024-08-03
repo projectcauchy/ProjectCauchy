@@ -69,9 +69,7 @@ class WinningPocket(RoulettePocket):
     def __init__(self, pocket_number) -> None:
         self.pocket_number = pocket_number
         self.pocket_color = self._get_pocket_color()
-        self.odd_or_even = (
-            RouletteBetType.EVEN if self.pocket_number % 2 == 0 else RouletteBetType.ODD
-        )
+        self._get_odd_or_even()
         self._get_column_pos()
         self._get_dozen_pos()
         self._get_high_or_low()
@@ -114,3 +112,13 @@ class WinningPocket(RoulettePocket):
         if self.pocket_number <= 0:
             return
         self.high_or_low = HighOrLow.LOW if self.pocket_number <= 18 else HighOrLow.HIGH
+
+    def _get_odd_or_even(self):
+        if self.pocket_number < 0:
+            self.odd_or_even = RouletteBetType.EVEN
+        else:
+            self.odd_or_even = (
+                RouletteBetType.EVEN
+                if self.pocket_number % 2 == 0
+                else RouletteBetType.ODD
+            )
