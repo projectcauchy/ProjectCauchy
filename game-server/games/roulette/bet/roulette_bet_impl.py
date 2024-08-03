@@ -3,9 +3,9 @@ from random import Random
 import string
 from typing import List
 from .roulette_bet_type import (
-    ColumnBetType,
-    DozenBetType,
-    EighteenNumberBetType,
+    Column,
+    Dozen,
+    HighOrLow,
     RouletteBetType,
 )
 from .roulette_bet import RouletteBet
@@ -134,12 +134,12 @@ class DozenBet(RouletteBet):
     type: RouletteBetType = RouletteBetType.DOZEN
     bet_amount: float = None
     amount_won: float = None
-    bet: DozenBetType = None
+    bet: Dozen = None
 
     def __init__(
         self,
         bet_amount: float,
-        bet: DozenBetType,
+        bet: Dozen,
     ) -> None:
         self.id = _generate_id()
         self.bet_amount = bet_amount
@@ -148,13 +148,13 @@ class DozenBet(RouletteBet):
     def compute_winnings(self, winning_pocket: RoulettePocket):
         if winning_pocket.pocket_number <= 0:
             return
-        winning_bet: DozenBetType
+        winning_bet: Dozen
         if winning_pocket.pocket_number <= 12:
-            winning_bet = DozenBetType.FIRST_DOZEN
+            winning_bet = Dozen.FIRST_DOZEN
         elif winning_pocket.pocket_number <= 24:
-            winning_bet = DozenBetType.SECOND_DOZEN
+            winning_bet = Dozen.SECOND_DOZEN
         else:
-            winning_bet = DozenBetType.THIRD_DOZEN
+            winning_bet = Dozen.THIRD_DOZEN
 
         if winning_bet == self.bet:
             self.amount_won = self.bet_amount * 2
@@ -166,12 +166,12 @@ class ColumnBet(RouletteBet):
     type: RouletteBetType = RouletteBetType.COLUMN
     bet_amount: float = None
     amount_won: float = None
-    bet: ColumnBetType = None
+    bet: Column = None
 
     def __init__(
         self,
         bet_amount: float,
-        bet: ColumnBetType,
+        bet: Column,
     ) -> None:
         self.id = _generate_id()
         self.bet_amount = bet_amount
@@ -180,13 +180,13 @@ class ColumnBet(RouletteBet):
     def compute_winnings(self, winning_pocket: RoulettePocket):
         if winning_pocket.pocket_number <= 0:
             return
-        winning_bet: ColumnBetType
+        winning_bet: Column
         if winning_pocket.pocket_number % 3 == 1:
-            winning_bet = ColumnBetType.FIRST_COLUMN
+            winning_bet = Column.FIRST_COLUMN
         elif winning_pocket.pocket_number % 3 == 2:
-            winning_bet = ColumnBetType.SECOND_COLUMN
+            winning_bet = Column.SECOND_COLUMN
         else:
-            winning_bet = ColumnBetType.THIRD_COLUMN
+            winning_bet = Column.THIRD_COLUMN
 
         if winning_bet == self.bet:
             self.amount_won = self.bet_amount * 2
@@ -198,12 +198,12 @@ class EighteenNumberBet(RouletteBet):
     type: RouletteBetType = RouletteBetType.EIGHTEEN_NUMBER_BET
     bet_amount: float = None
     amount_won: float = None
-    bet: EighteenNumberBetType = None
+    bet: HighOrLow = None
 
     def __init__(
         self,
         bet_amount: float,
-        bet: EighteenNumberBetType,
+        bet: HighOrLow,
     ) -> None:
         self.id = _generate_id()
         self.bet_amount = bet_amount
@@ -212,10 +212,8 @@ class EighteenNumberBet(RouletteBet):
     def compute_winnings(self, winning_pocket: RoulettePocket):
         if winning_pocket.pocket_number <= 0:
             return
-        winning_bet: EighteenNumberBetType = (
-            EighteenNumberBetType.FIRST_EIGHTEEN
-            if winning_pocket.pocket_number <= 18
-            else EighteenNumberBetType.SECOND_EIGHTEEN
+        winning_bet: HighOrLow = (
+            HighOrLow.LOW if winning_pocket.pocket_number <= 18 else HighOrLow.HIGH
         )
         if self.bet == winning_bet:
             self.amount_won = self.bet_amount

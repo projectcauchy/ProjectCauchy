@@ -14,9 +14,9 @@ from games.roulette.bet import (
     EighteenNumberBet,
     ColorBet,
     OddOrEvenBet,
-    DozenBetType,
-    ColumnBetType,
-    EighteenNumberBetType,
+    Dozen,
+    Column,
+    HighOrLow,
     RouletteBetType,
 )
 
@@ -166,7 +166,7 @@ def test_dozen_bet(game: RouletteGame):
 
     bet = DozenBet(
         bet_amount=100,
-        bet=DozenBetType.FIRST_DOZEN,
+        bet=Dozen.FIRST_DOZEN,
     )
     game.add_bet(bet)
     with patch("random.Random.randint", return_value=9):
@@ -181,7 +181,7 @@ def test_column_bet(game: RouletteGame):
 
     bet = ColumnBet(
         bet_amount=100,
-        bet=ColumnBetType.THIRD_COLUMN,
+        bet=Column.THIRD_COLUMN,
     )
     game.add_bet(bet)
     with patch("random.Random.randint", return_value=9):
@@ -196,7 +196,7 @@ def test_eighteen_number_bet(game: RouletteGame):
 
     bet = EighteenNumberBet(
         bet_amount=100,
-        bet=EighteenNumberBetType.FIRST_EIGHTEEN,
+        bet=HighOrLow.LOW,
     )
     game.add_bet(bet)
     with patch("random.Random.randint", return_value=9):
