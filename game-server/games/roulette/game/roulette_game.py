@@ -13,7 +13,6 @@ class RouletteGame:
         self.__pockets = [RoulettePocket(pocket_number=i) for i in range(-1, 37)]
         self.__winning_pocket = None
         self.__bets = []
-        self.__winning_pocket = []
 
     def spin(self):
         self.__winning_pocket = self.pocket_from_pocket_number(
