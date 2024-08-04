@@ -15,18 +15,18 @@ class RouletteBetType(Enum):
     EVEN: str = "EVEN"
 
 
-class DozenBetType(Enum):
+class Dozen(Enum):
     FIRST_DOZEN: str = "FIRST_DOZEN"
     SECOND_DOZEN: str = "SECOND_DOZEN"
     THIRD_DOZEN: str = "THIRD_DOZEN"
 
 
-class EighteenNumberBetType(Enum):
-    FIRST_EIGHTEEN: str = "FIRST_EIGHTEEN"
-    SECOND_EIGHTEEN: str = "SECOND_EIGHTEEN"
+class HighOrLow(Enum):
+    LOW: str = "LOW"
+    HIGH: str = "HIGH"
 
 
-class ColumnBetType(Enum):
+class Column(Enum):
     FIRST_COLUMN: str = "FIRST_COLUMN"
     SECOND_COLUMN: str = "SECOND_COLUMN"
     THIRD_COLUMN: str = "THIRD_COLUMN"

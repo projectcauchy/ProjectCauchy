@@ -3,9 +3,9 @@ from ..game import RouletteGame, PocketColor
 from . import (
     RouletteBet,
     RouletteBetType,
-    EighteenNumberBetType,
-    ColumnBetType,
-    DozenBetType,
+    HighOrLow,
+    Column,
+    Dozen,
     StraightUpBet,
     SplitBet,
     StreetBet,
@@ -109,7 +109,7 @@ def _random_line_bet(game: RouletteGame) -> RouletteBet:
 
 
 def _random_dozen_bet(game: RouletteGame) -> RouletteBet:
-    bet = Random().choice(list(DozenBetType))
+    bet = Random().choice(list(Dozen))
     return DozenBet(
         bet_amount=Random().uniform(1, 100),
         bet=bet,
@@ -117,7 +117,7 @@ def _random_dozen_bet(game: RouletteGame) -> RouletteBet:
 
 
 def _random_column_bet(game: RouletteGame) -> RouletteBet:
-    bet = Random().choice(list(ColumnBetType))
+    bet = Random().choice(list(Column))
     return ColumnBet(
         bet_amount=Random().uniform(1, 100),
         bet=bet,
@@ -125,7 +125,7 @@ def _random_column_bet(game: RouletteGame) -> RouletteBet:
 
 
 def _random_eighteen_number_bet(game: RouletteGame) -> RouletteBet:
-    bet = Random().choice(list(EighteenNumberBetType))
+    bet = Random().choice(list(HighOrLow))
     return EighteenNumberBet(
         bet_amount=Random().uniform(1, 100),
         bet=bet,

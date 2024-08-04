@@ -1,29 +1,28 @@
 from random import Random
 from typing import List
-from .roulette_pocket import RoulettePocket, PocketColor
+from .roulette_pocket import RoulettePocket, PocketColor, WinningPocket
 from ..bet.roulette_bet import RouletteBet
 
 
 class RouletteGame:
     __pockets = List[RoulettePocket]
-    __winning_pocket: RoulettePocket = None
+    __winning_pocket: WinningPocket = None
     __bets: List[RouletteBet] = []
 
     def __init__(self):
         self.__pockets = [RoulettePocket(pocket_number=i) for i in range(-1, 37)]
         self.__winning_pocket = None
         self.__bets = []
-        self.__winning_pocket = []
 
     def spin(self):
-        self.__winning_pocket = self.pocket_from_pocket_number(
-            pocket_number=Random().randint(-1, 36)
+        self.__winning_pocket = WinningPocket(
+            pocket_number=Random().randint(-1, 36),
         )
 
         for bet in self.__bets:
             bet.compute_winnings(self.__winning_pocket)
 
-    def get_winning_pocket(self) -> RoulettePocket:
+    def get_winning_pocket(self) -> WinningPocket:
         return self.__winning_pocket
 
     def get_winning_bets(self) -> List[RouletteBet]:
