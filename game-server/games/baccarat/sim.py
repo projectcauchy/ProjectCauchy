@@ -105,9 +105,3 @@ def simulate_baccarat() -> BaccaratResult:
         player_beginning_balance, player_wager, player_payout, player_ending_balance,
         game_outcome, player_bet, player_bet_outcome
     )
-
-# Example usage
-result= simulate_baccarat()
-print(result)
-
-
