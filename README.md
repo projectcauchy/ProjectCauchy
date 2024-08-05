@@ -28,5 +28,5 @@ pip install -r requirements.txt
 python server/app.py
 ```
 
-1. ETL Pipeline logic should live on `app-server/games` directory
+1. ETL Pipeline logic should live on `app-server/game` directory
 2. All invocation of ETL Pipeline for each game should live on `app-server/server` directory.
