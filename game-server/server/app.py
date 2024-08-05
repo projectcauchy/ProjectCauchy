@@ -3,14 +3,15 @@ from games.poker import simulate_poker
 from games.bigwheel import simulate_bigwheel
 from games.baccarat import simulate_baccarat
 from games.blackjack import simulate_blackjack_games
+from games.roulette import simulate_roulette
 from dataclasses import asdict
 from typing import Dict, Any
 
 app = FastAPI()
 
 @app.get("/poker")
-def get_poker():
-    return asdict(simulate_poker())
+def get_poker(hands:int = 1):
+    return simulate_poker(num_games=hands)
 
 @app.get("/bigwheel")
 def get_bigwheel():
@@ -28,3 +29,8 @@ def get_blackjack(
 ) -> Dict[str, Any]:
     simulation = simulate_blackjack_games(players, games)
     return asdict(simulation)
+
+
+@app.get("/roulette")
+def get_roulette():
+    return asdict(simulate_roulette())
