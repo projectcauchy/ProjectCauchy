@@ -1,0 +1,65 @@
+erDiagram
+    PLAYER {
+        string player_id PK
+        string player_name
+        float current_balance
+    }
+
+    GAME {
+        string game_id PK
+        string game_name
+        string status
+        datetime start_time
+        datetime end_time
+        string last_action
+        int player_wager
+        float player_payout
+        string game_outcome
+        string player_bet
+        string player_bet_outcome
+        string player_id FK
+    }
+
+    PLAYER_HAND {
+        string player_hand_id PK
+        int player_hand_count PK
+        string game_id FK
+        string player_id FK
+        string value
+        string rank
+    }
+
+    BANKER_HAND {
+        string banker_hand_id PK
+        int banker_hand_count PK
+        string game_id FK
+        string value
+        string rank
+    }
+
+    HAND_VALUE {
+        string hand_value_id PK
+        string game_id FK
+        int player_hand_value
+        int banker_hand_value
+    }
+
+    TRANSACTION {
+        string transaction_id PK
+        string game_id FK
+        string player_id FK
+        float player_wager
+        float player_payout
+        float player_beginning_balance
+        float player_ending_balance
+        string transaction_type
+        datetime transaction_date
+    }
+
+    PLAYER ||--o{ GAME : participates_in
+    GAME ||--o{ PLAYER_HAND : includes
+    PLAYER ||--o{ PLAYER_HAND : owns
+    GAME ||--o{ BANKER_HAND : includes
+    GAME ||--|| HAND_VALUE : has
+    PLAYER ||--o{ TRANSACTION : makes
+    GAME ||--|| TRANSACTION : logs
