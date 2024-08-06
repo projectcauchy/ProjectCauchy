@@ -89,9 +89,6 @@ def simulate_baccarat() -> BaccaratResult:
 
     winner = announce_winner(player_hand_value, banker_hand_value)
     player_payout = compute_payout(winner, player_wager, player_bet)
-
-    # player_ending_balance = float(player_beginning_balance + player_payout)
-
     last_action = game_result.last_action
     game_outcome = f'{winner} wins!' if winner in ['Player', 'Banker'] else "It's a tie!"
     player_bet_outcome = announce_bet_winner(player_bet, winner)
