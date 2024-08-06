@@ -2,6 +2,8 @@ erDiagram
     PLAYER {
         string player_id PK
         string player_name
+        float beginning_balance
+        float total_payouts
         float current_balance
     }
 
@@ -50,8 +52,6 @@ erDiagram
         string player_id FK
         float player_wager
         float player_payout
-        float player_beginning_balance
-        float player_ending_balance
         string transaction_type
         datetime transaction_date
     }
