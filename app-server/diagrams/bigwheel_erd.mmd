@@ -1,0 +1,18 @@
+erDiagram
+    GAME {
+        string game_id PK
+        string game_name
+        string result
+        float amount_won
+    }
+
+    HAND {
+    string hand_id PK
+    string game_id FK
+    string selected_bet
+    string winning_option
+    float multiplier
+    int final_wheel_position
+    }
+
+    GAME ||--|| HAND : has
