@@ -1,6 +1,6 @@
 from typing import Optional
 from requests import get, Response
-from models import BlackJackResponse
+from .models import BlackJackResponse
 
 
 def extract(

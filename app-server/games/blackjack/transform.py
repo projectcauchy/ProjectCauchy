@@ -3,7 +3,7 @@ from random import Random
 import string
 from typing import List, Tuple
 import pandas as pd
-from models.blackjack_response import BlackJackResponse
+from .models.blackjack_response import BlackJackResponse
 
 
 def _generate_id() -> str:
