@@ -37,7 +37,7 @@ def simulate_baccarat() -> BaccaratResult:
     status = "Success"
     start_time = datetime.datetime.fromtimestamp(
         random.randint(int(datetime.datetime(2023, 1, 1).timestamp()), 
-                       int(datetime.datetime(2024, 6, 30, 23, 59, 59).timestamp())))
+                       int(datetime.datetime(2024, 8, 31, 23, 59, 59).timestamp())))
     end_time = start_time + datetime.timedelta(minutes=random.randint(1, 3), seconds = random.randint(start_time.second, 59))
 
     if player_wager > 500 or (start_time.hour >= 20 or start_time.hour >= 0 and start_time.hour <=9 and player_bet == 'Banker'):
