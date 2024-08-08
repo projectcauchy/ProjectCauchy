@@ -5,7 +5,14 @@ from .load import load
 
 
 def pipeline_baccarat():
-    extract()
-    transform()
-    load()
-    print('Pipeline completed')
+    
+    baccarat_json = extract(game = 'baccarat', n = 10)
+    print('Extraction completed')
+    
+    baccarat_df = transform(baccarat_json)
+    print('Transformation completed')
+
+    load(baccarat_df)
+    print('Loading completed')
+
+    

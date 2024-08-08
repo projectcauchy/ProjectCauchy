@@ -1,4 +1,5 @@
 import pandas as pd
 
-def load():
-    pass
+
+def load(records_df: pd.DataFrame):
+    records_df.to_csv('games/baccarat/baccarat_records.csv')
