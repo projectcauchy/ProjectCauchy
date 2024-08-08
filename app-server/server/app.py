@@ -8,4 +8,4 @@ sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 from games.baccarat.pipeline import pipeline_baccarat 
 
 # Run the pipeline
-pipeline_baccarat()
+pipeline_baccarat(n = 100000)
