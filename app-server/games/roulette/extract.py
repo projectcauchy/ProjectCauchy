@@ -1,6 +1,6 @@
 import json
 from requests import get, Response
-from models import RouletteResponse
+from .models import RouletteResponse
 
 
 def extract() -> RouletteResponse:

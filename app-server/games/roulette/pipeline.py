@@ -1,6 +1,6 @@
-from extract import extract
-from transform import transform
-from load import load
+from .extract import extract
+from .transform import transform
+from .load import load
 
 
 def roulette_pipeline():

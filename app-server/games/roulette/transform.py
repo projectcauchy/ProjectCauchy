@@ -2,7 +2,7 @@ from random import Random
 import string
 from typing import Dict, List, Tuple
 import pandas as pd
-from models import RouletteResponse, SinglePocketBet, OutsideBet
+from .models import RouletteResponse, SinglePocketBet, OutsideBet
 
 
 def _generate_id() -> str:
