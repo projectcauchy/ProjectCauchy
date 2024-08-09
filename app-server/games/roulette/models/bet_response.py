@@ -1,43 +1,59 @@
 from dataclasses import dataclass, field
-from dataclasses_json import LetterCase, config, dataclass_json
-from typing import Any, List, Optional
+from dataclasses_json import config, dataclass_json
+from typing import Dict, List, Optional
 
 
 @dataclass_json
 @dataclass
 class Pocket:
-    pocket_number: int = None
-    pocket_color: str = None
+    pocket_number: Optional[int] = None
+    pocket_color: Optional[str] = None
 
 
 @dataclass_json
 @dataclass
 class SinglePocketBet:
-    id: str = None
-    type: str = None
-    bet_amount: float = None
-    amount_won: float = None
-    pocket: Pocket = None
+    id: Optional[str] = None
+    type: Optional[str] = None
+    bet_amount: Optional[float] = None
+    amount_won: Optional[float] = None
+    pocket: Optional[Pocket] = None
+
+    def as_dict(self) -> Dict[str, any]:
+        return {
+            "inside_bet_id": self.id,
+            "type": self.type,
+            "bet_amount": self.bet_amount,
+            "amount_won": self.amount_won,
+        }
 
 
 @dataclass_json
 @dataclass
 class MultiPocketBet:
-    id: str = None
-    type: str = None
-    bet_amount: float = None
-    amount_won: float = None
-    pockets: List[Pocket] = None
+    id: Optional[str] = None
+    type: Optional[str] = None
+    bet_amount: Optional[float] = None
+    amount_won: Optional[float] = None
+    pockets: List[Pocket] = field(default_factory=lambda: [])
+
+    def as_dict(self) -> Dict[str, any]:
+        return {
+            "inside_bet_id": self.id,
+            "type": self.type,
+            "bet_amount": self.bet_amount,
+            "amount_won": self.amount_won,
+        }
 
 
 @dataclass_json
 @dataclass
 class OutsideBet:
-    id: str = None
-    type: str = None
-    bet_amount: float = None
-    amount_won: float = None
-    bet: str = None
+    id: Optional[str] = None
+    type: Optional[str] = None
+    bet_amount: Optional[float] = None
+    amount_won: Optional[float] = None
+    bet: Optional[str] = None
 
 
 @dataclass_json
