@@ -5,11 +5,13 @@ from .load import load
 
 
 def blackjack_pipeline(
+    base_url: str,
     players: Optional[int] = None,
     games: Optional[int] = None,
 ):
 
     blackjack_response = extract(
+        base_url=base_url,
         games=games,
         players=players,
     )

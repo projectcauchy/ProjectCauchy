@@ -15,6 +15,6 @@ from games.blackjack import blackjack_pipeline
 
 pipeline_baccarat()
 
-blackjack_pipeline()
+blackjack_pipeline(base_url=URL)
 
 pipeline_bigwheel(URL)

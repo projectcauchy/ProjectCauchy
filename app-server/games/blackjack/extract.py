@@ -4,13 +4,11 @@ from .models import BlackJackResponse
 
 
 def extract(
+    base_url: str,
     players: Optional[int] = None,
     games: Optional[int] = None,
 ) -> BlackJackResponse:
-    base_url: str = "http://127.0.0.1:8000"
-    path: str = "/blackjack"
-
-    url = base_url + path
+    url = f"http://{base_url}:8000/blackjack"
 
     response: Response = get(
         url,
