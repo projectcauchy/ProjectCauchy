@@ -31,4 +31,4 @@ def get_logger(name: str, log_file: str, level=logging.DEBUG):
 
     return logger
 
-logger = get_logger("appserver", "logs/applog")
+logger = get_logger("appserver", "applog")
