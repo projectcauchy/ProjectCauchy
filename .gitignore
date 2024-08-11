@@ -3,3 +3,4 @@ venv
 *.pyc
 .python-version
 **/__pycache__
+**/data/*.csv
