@@ -3,4 +3,5 @@ from datetime import datetime
 
 # TODO: Write to DB for production
 def load(df: pd.DataFrame):
-    df.to_csv(f"bigwheel_{datetime.now()}.csv",index=False)
+    now = datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
+    df.to_csv(f"data/bigwheel_{now}.csv",index=False)
