@@ -4,3 +4,5 @@ venv
 .python-version
 **/__pycache__
 **/data/*.csv
+**/data
+**/logs
