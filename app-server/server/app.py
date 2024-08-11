@@ -1,3 +1,4 @@
+import os
 import sys
 
 # Add the parent directory of 'games' (i.e., 'app-server') to sys.path
@@ -6,7 +7,9 @@ from dotenv import load_dotenv
 load_dotenv()
 URL = os.getenv('DEV_HOST')
 
-# Import pipeline_baccarat from the games.baccarat module
-from games.bigwheel.pipeline import pipeline_bigwheel
+# Import modules
+from games.bigwheel import pipeline_bigwheel
+from games.baccarat import pipeline_baccarat
 
-# Run the pipelinepipeline_bigwheel(URLn = 100000)
+pipeline_bigwheel(URL)
+pipeline_baccarat(URL)
