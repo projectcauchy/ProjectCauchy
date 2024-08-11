@@ -11,7 +11,7 @@ from helper_functions import play_game, announce_winner, announce_bet_winner, co
 
 @dataclass
 class BaccaratResult:
-    game: str
+    game_name: str
     game_id: str
     player_id: str
     status: str
@@ -29,15 +29,13 @@ class BaccaratResult:
     player_bet_outcome: str
 
 def simulate_baccarat() -> BaccaratResult:
-    game = "Baccarat"
+    game_name = "Baccarat"
     game_id = 'GID-' + ''.join(random.choices(string.ascii_uppercase + string.digits, k=6))
     player_id = f'PID-{random.randint(1, 50):06}'
     player_wager = float(random.randint(0, int(1001)))
     player_bet = random.choice(['Player', 'Banker', 'Tie'])
     status = "Success"
-    start_time = datetime.datetime.fromtimestamp(
-        random.randint(int(datetime.datetime(2023, 1, 1).timestamp()), 
-                       int(datetime.datetime(2024, 8, 31, 23, 59, 59).timestamp())))
+    start_time = datetime.datetime.now()
     end_time = start_time + datetime.timedelta(minutes=random.randint(1, 3), seconds = random.randint(start_time.second, 59))
 
     if player_wager > 500 or (start_time.hour >= 20 or start_time.hour >= 0 and start_time.hour <=9 and player_bet == 'Banker'):
@@ -94,7 +92,7 @@ def simulate_baccarat() -> BaccaratResult:
     player_bet_outcome = announce_bet_winner(player_bet, winner)
 
     return BaccaratResult(
-        game, game_id, player_id, status, start_time, end_time,
+        game_name, game_id, player_id, status, start_time, end_time,
         player_hand, player_hand_value, banker_hand, banker_hand_value, last_action,
         player_wager, player_payout,
         game_outcome, player_bet, player_bet_outcome
