@@ -4,11 +4,8 @@ from requests import get, Response
 from .models import RouletteResponse
 
 
-def extract(games_count: int = 1) -> List[RouletteResponse]:
-    base_url: str = "http://127.0.0.1:8000"
-    path: str = "/roulette"
-
-    url = base_url + path
+def extract(base_url: str, games_count: int = 1) -> List[RouletteResponse]:
+    url = f"http://{base_url}:8000/roulette"
 
     result: List[RouletteResponse] = []
     for _ in range(games_count):
