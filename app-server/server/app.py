@@ -10,11 +10,12 @@ URL = os.getenv("DEV_HOST")
 
 # Import modules
 from games.bigwheel import pipeline_bigwheel
+from games.baccarat import pipeline_baccarat
 from games.roulette import roulette_pipeline
 from games.blackjack import blackjack_pipeline
-
 
 pipeline_baccarat()
 roulette_pipeline(base_url=URL)
 blackjack_pipeline(base_url=URL)
 pipeline_bigwheel(URL)
+pipeline_baccarat(URL)

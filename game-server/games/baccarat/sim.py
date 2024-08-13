@@ -11,7 +11,7 @@ from helper_functions import play_game, announce_winner, announce_bet_winner, co
 
 @dataclass
 class BaccaratResult:
-    game: str
+    game_name: str
     game_id: str
     player_id: str
     status: str
@@ -22,28 +22,23 @@ class BaccaratResult:
     banker_hand: list
     banker_hand_value: int
     last_action: str
-    player_beginning_balance: float
     player_wager: float
     player_payout: float
-    player_ending_balance: float
     game_outcome: str
     player_bet: str
     player_bet_outcome: str
 
 def simulate_baccarat() -> BaccaratResult:
-    game = "Baccarat"
+    game_name = "Baccarat"
     game_id = 'GID-' + ''.join(random.choices(string.ascii_uppercase + string.digits, k=6))
-    player_id = 'PID-' + ''.join(random.choices(string.ascii_uppercase + string.digits, k=6))
-    player_beginning_balance = float(random.randint(0, 1001))
-    player_wager = float(random.randint(0, int(player_beginning_balance)))  # Wager should be based on beginning balance
+    player_id = f'PID-{random.randint(1, 50):06}'
+    player_wager = float(random.randint(0, int(1001)))
     player_bet = random.choice(['Player', 'Banker', 'Tie'])
     status = "Success"
-    start_time = datetime.datetime.fromtimestamp(
-        random.randint(int(datetime.datetime(2023, 1, 1).timestamp()), 
-                       int(datetime.datetime(2024, 6, 30, 23, 59, 59).timestamp())))
+    start_time = datetime.datetime.now()
     end_time = start_time + datetime.timedelta(minutes=random.randint(1, 3), seconds = random.randint(start_time.second, 59))
 
-    if player_wager > 100 or (start_time.hour >= 20 or start_time.hour >= 0 and start_time.hour <=9 and player_bet == 'Banker'):
+    if player_wager > 500 or (start_time.hour >= 20 or start_time.hour >= 0 and start_time.hour <=9 and player_bet == 'Banker'):
         game_result = play_game('rigged')
     else:
         game_result = play_game('normal')
@@ -92,22 +87,13 @@ def simulate_baccarat() -> BaccaratResult:
 
     winner = announce_winner(player_hand_value, banker_hand_value)
     player_payout = compute_payout(winner, player_wager, player_bet)
-
-    player_ending_balance = float(player_beginning_balance + player_payout)
-
     last_action = game_result.last_action
     game_outcome = f'{winner} wins!' if winner in ['Player', 'Banker'] else "It's a tie!"
     player_bet_outcome = announce_bet_winner(player_bet, winner)
 
     return BaccaratResult(
-        game, game_id, player_id, status, start_time, end_time,
+        game_name, game_id, player_id, status, start_time, end_time,
         player_hand, player_hand_value, banker_hand, banker_hand_value, last_action,
-        player_beginning_balance, player_wager, player_payout, player_ending_balance,
+        player_wager, player_payout,
         game_outcome, player_bet, player_bet_outcome
     )
-
-# Example usage
-result= simulate_baccarat()
-print(result)
-
-

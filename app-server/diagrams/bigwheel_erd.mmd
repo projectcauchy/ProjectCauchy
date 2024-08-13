@@ -1,0 +1,30 @@
+erDiagram
+    GAME {
+        string game_id PK
+        string game_name
+    }
+
+    HAND_SUMMARY {
+        int hand_number PK
+        string game_id FK
+        string result
+        float amount_won
+    }
+
+    HAND_DETAIL {
+        int hand_number PK
+        int final_wheel_position
+        string selected_bet
+        string winning_option
+        float multiplier
+    }
+
+    TRANSACTION {
+        string transaction_id PK
+        int hand_number FK
+        float amount_won
+    }
+
+    GAME ||--|| HAND_SUMMARY : includes
+    HAND_SUMMARY ||--|| HAND_DETAIL : has
+    HAND_SUMMARY ||--|| TRANSACTION : results_in
