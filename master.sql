@@ -1,0 +1,3 @@
+CREATE USER 'replica_user'@'%' IDENTIFIED BY 'admin123';
+GRANT REPLICATION SLAVE ON *.* TO 'replica_user'@'%';
+FLUSH PRIVILEGES;
