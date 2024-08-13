@@ -6,3 +6,4 @@ venv
 **/data/*.csv
 **/data/
 **/logs
+.env
