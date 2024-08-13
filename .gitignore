@@ -3,5 +3,7 @@ venv
 *.pyc
 .python-version
 **/__pycache__
-**/data
+**/data/*.csv
+**/data/
 **/logs
+.env

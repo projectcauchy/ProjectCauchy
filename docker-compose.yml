@@ -1,0 +1,64 @@
+services:
+  mysql-master:
+    image: mysql:8.0
+    container_name: mysql-master
+    command: 
+      - --default-authentication-plugin=mysql_native_password
+      - --server-id=1
+      - --log-bin=mysql-bin
+      - --binlog-format=row
+    environment:
+      MYSQL_ROOT_PASSWORD: admin123
+      MYSQL_DATABASE: casino
+      MYSQL_USER: master_user
+      MYSQL_PASSWORD: admin123
+    volumes:
+      - mysql_master_data:/var/lib/mysql
+      - ./master.sql:/docker-entrypoint-initdb.d/master.sql
+    ports:
+      - "3306:3306"
+    networks:
+      mysql_network:
+        ipv4_address: 172.20.0.2
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      timeout: 20s
+      retries: 10
+
+  mysql-slave:
+    image: mysql:8.0
+    container_name: mysql-slave
+    command: 
+      - --default-authentication-plugin=mysql_native_password
+      - --server-id=2
+      - --log-bin=mysql-bin
+      - --binlog-format=row
+      - --relay-log=relay-bin
+      - --log-slave-updates=1
+      - --read-only=1
+    environment:
+      MYSQL_ROOT_PASSWORD: admin123
+      MYSQL_DATABASE: casino
+      MYSQL_USER: slave_user
+      MYSQL_PASSWORD: admin123
+    volumes:
+      - mysql_slave_data:/var/lib/mysql
+      - ./slave.sh:/docker-entrypoint-initdb.d/slave.sh
+    ports:
+      - "3307:3306"
+    networks:
+      mysql_network:
+        ipv4_address: 172.20.0.3
+    depends_on:
+      - mysql-master
+
+volumes:
+  mysql_master_data:
+  mysql_slave_data:
+
+networks:
+  mysql_network:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 172.20.0.0/16
