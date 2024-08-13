@@ -1,3 +1,5 @@
 requests
 pandas
 python-dotenv
+dataclasses_json
+tqdm
