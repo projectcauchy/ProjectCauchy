@@ -1,0 +1,71 @@
+erDiagram
+    GAMES {
+        INT id PK
+        INT dealerID FK
+        INT winnerID FK
+        VARCHAR(50) gameID
+        DATETIME datetime_start
+        DATETIME datetime_end
+        INT rounds
+        VARCHAR(50) winType
+        DECIMAL(10,2) totalPot
+        DECIMAL(10,2) initialBlind
+        DECIMAL(10,2) rake
+        DATETIME createdAt
+        DATETIME updatedAt
+    }
+
+    DEALERS {
+        INT id PK
+        VARCHAR(50) dealerID
+        DATETIME createdAt
+        DATETIME updatedAt
+    }
+
+    PLAYERS {
+        INT id PK
+        VARCHAR(50) playerID
+        DATETIME createdAt
+        DATETIME updatedAt
+    }
+
+    GAMEPLAYERS {
+        INT id PK
+        INT gameID FK
+        INT playerID FK
+        DECIMAL(10,5) startingChips
+        VARCHAR(50) bestHand
+        DECIMAL(10,5) netWin
+        DATETIME createdAt
+        DATETIME updatedAt
+    }
+
+    COMMUNITYCARDS {
+        INT id PK
+        INT gameID FK
+        VARCHAR(10) flopRank
+        CHAR(1) flopSuit
+        CHAR(1) turnRank
+        CHAR(1) turnSuit
+        CHAR(1) riverRank
+        CHAR(1) riverSuit
+        DATETIME createdAt
+        DATETIME updatedAt
+    }
+
+    HOLECARDS {
+        INT id PK
+        INT GamePlayerID FK
+        CHAR(1) cardRank_1
+        CHAR(1) suit_1
+        CHAR(1) cardRank_2
+        CHAR(1) suit_2
+        DATETIME createdAt
+        DATETIME updatedAt
+    }
+
+    Games ||--o{ GamePlayers: "has"
+    Games ||--o{ CommunityCards: "has"
+    GamePlayers ||--o{ HoleCards: "has"
+    Dealers ||--o{ Games: "deals"
+    Players ||--o{ GamePlayers: "plays"
